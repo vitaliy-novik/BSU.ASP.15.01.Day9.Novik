@@ -24,6 +24,28 @@ namespace BinarySearchTree.Tests
         }
 
         [Test]
+        public void PreOrderIntDefaultComparerTest()
+        {
+            BSTree<int> tree = new BSTree<int>(
+                new int[] { 5, 2, 8, 1, 3, 4, 7, 9, 6 });
+
+            int[] expected = { 5, 2, 1, 3, 4, 8, 7, 6, 9 };
+
+            CollectionAssert.AreEqual(expected, tree.PreOrder());
+        }
+
+        [Test]
+        public void PostOrderIntDefaultComparerTest()
+        {
+            BSTree<int> tree = new BSTree<int>(
+                new int[] { 5, 2, 8, 1, 3, 4, 7, 9, 6 });
+
+            int[] expected = { 1, 4, 3, 2, 6, 7, 9, 8, 5 };
+
+            CollectionAssert.AreEqual(expected, tree.PostOrder());
+        }
+
+        [Test]
         public void InOrderIntNumberOfDigitsComparerTest()
         {
             BSTree<int> tree = new BSTree<int>(
