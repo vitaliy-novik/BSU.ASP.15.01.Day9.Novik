@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BinarySearchTree;
+using BinarySearchTree.Tests;
+using Matrix;
 
 namespace ConsoleUI
 {
@@ -11,11 +13,13 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            BSTree<int> tree = new BSTree<int>((a, b) => -a.CompareTo(b)) { 5, 2, 8, 3, 7, 1, 4, 6, 9 };
-            foreach (var item in tree)
-            {
-                Console.WriteLine(item);
-            }
+            string s = null;
+            Console.WriteLine((s));
+//            BSTree<Point2D> tree = new BSTree<Point2D>(new Point2D[] { new Point2D(1, 2), new Point2D(3, 4)});
+  //          foreach (var item in tree)
+    //        {
+      //          Console.WriteLine(item);
+        //    }
             Console.Read();
         }
     }

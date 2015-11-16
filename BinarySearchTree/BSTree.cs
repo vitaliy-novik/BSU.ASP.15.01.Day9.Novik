@@ -73,6 +73,8 @@ namespace BinarySearchTree
 
         public void Add(T item)
         {
+            if (item == null)
+                throw new ArgumentNullException($"{nameof(item)}");
             BSTNode current = root, parent = null;
             int comparison;
             while (current != null)
@@ -101,6 +103,8 @@ namespace BinarySearchTree
 
         public bool Remove(T item)
         {
+            if (item == null)
+                throw new ArgumentNullException($"{nameof(item)}");
             if (root == null)
                 return false;  
             BSTNode current = root, parent = null;
@@ -178,6 +182,25 @@ namespace BinarySearchTree
             return true;
         }        
 
+        public bool Contains(T item)
+        {
+            if (item == null)
+                throw new ArgumentNullException($"{nameof(item)}");
+            BSTNode current = root;
+            int comparison;
+            while (current != null)
+            {
+                comparison = comparer(item, current.Value);
+                if (comparison == 0)
+                    return true;
+                if (comparison > 0)
+                    current = current.Right;
+                else
+                    current = current.Left;
+            }
+            return false;
+        }
+
         #region Traversal
 
         public IEnumerable<T> PreOrder()
@@ -252,14 +275,9 @@ namespace BinarySearchTree
 
         private void ComparerInit()
         {
-            try
-            {
-                comparer = (t1, t2) => (t1 as IComparable<T>).CompareTo(t2);
-            }
-            catch (NullReferenceException)
-            {
-                throw new ArgumentException($"{typeof(T)} is not Comparable");
-            }
+            if (!typeof(T).GetInterfaces().Contains(typeof(IComparable<T>)))
+                throw new ArgumentException($"{typeof(T)} is not Comparable");            
+            comparer = (t1, t2) => (t1 as IComparable<T>).CompareTo(t2);
         }
 
         private void ItemsInit(IEnumerable<T> items)
@@ -273,7 +291,6 @@ namespace BinarySearchTree
         }
 
         #endregion
-
-
+        
     }
 }
