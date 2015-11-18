@@ -26,7 +26,7 @@ namespace BinarySearchTree
         }
 
         private BSTNode root;
-        private Func<T, T, int> comparer;
+        private Comparison<T> comparer;
 
         public int Count { get; private set; } = 0;
 
@@ -45,7 +45,7 @@ namespace BinarySearchTree
                 this.comparer = (t1, t2) => comparer.Compare(t1, t2);
         }
 
-        public BSTree(Func<T, T, int> comparer)
+        public BSTree(Comparison<T> comparer)
         {
             if (comparer == null)
                 ComparerInit();
@@ -59,7 +59,7 @@ namespace BinarySearchTree
             ItemsInit(items);
         }
 
-        public BSTree(IEnumerable<T> items, Func<T, T, int> comparer) : this(comparer)
+        public BSTree(IEnumerable<T> items, Comparison<T> comparer) : this(comparer)
         {
             ItemsInit(items);
         }
@@ -222,21 +222,19 @@ namespace BinarySearchTree
 
         public IEnumerable<T> InOrder()
         {
-            Stack<BSTNode> stack = new Stack<BSTNode>();
-            BSTNode current = root;
-            while (true)
-            {
-                while (current != null)
-                {
-                    stack.Push(current);
-                    current = current.Left;
-                }
-                if (stack.Count == 0)
-                    break;
-                current = stack.Pop();
-                yield return current.Value;
-                current = current.Right;
-            }
+            foreach(T value in InOrder(root))
+                yield return value;
+        }
+
+        private IEnumerable<T> InOrder(BSTNode node)
+        {
+            if (node == null)
+                yield break;
+            foreach (T value in InOrder(node.Left))
+                yield return value;
+            yield return node.Value;
+            foreach (T value in InOrder(node.Right))
+                yield return value;
         }
 
         public IEnumerable<T> PostOrder()

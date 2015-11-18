@@ -13,13 +13,21 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            string s = null;
-            Console.WriteLine((s));
-//            BSTree<Point2D> tree = new BSTree<Point2D>(new Point2D[] { new Point2D(1, 2), new Point2D(3, 4)});
-  //          foreach (var item in tree)
-    //        {
-      //          Console.WriteLine(item);
-        //    }
+            int[] arr = new int[10000];
+            int c = -1;
+            Random r = new Random();
+            while (++c < 10000)
+                arr[c] = r.Next();
+            BSTree<int> tree = new BSTree<int>(arr);
+            TimeSpan ts = new TimeSpan();
+            
+            long time = ts.Ticks;
+            foreach (var item in tree.InOrder())
+            {
+                --c;
+            }
+            time = ts.Ticks - time;
+            Console.WriteLine(time);
             Console.Read();
         }
     }
